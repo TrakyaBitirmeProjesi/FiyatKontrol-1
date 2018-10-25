@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sonuçlar</title>
+</head>
+<body>
+
+<center><a href="/"><button>Tekrar Dene</button></a></center>
+<table style="width:45% ; display: inline-block;float: left;">
+    <caption>Migros Sonuçları</caption>
+  <tr>
+      <th>Ürün Resmi</th>
+    <th>Ürün Adı</th>
+    <th>Fiyat</th>
+    <th>Link</th>
+  </tr>
+  {% for product in migros_data %}
+      <tr>
+          <td><img src="{{product['resim']}}" width="100" height="100"></td>
+          <td>{{product["urun"]}}</td>
+          <td>{{product["fiyat"]}}</td>
+          <td><a href = "{{product['link']}}">Git</a></td>
+      </tr>
+  {% endfor %}
+</table>
+<table style="width:45% ; display: inline-block ;float:right">
+    <caption>Carrefoursa Sonuçları</caption>
+  <tr>
+      <th>Ürün Resmi</th>
+    <th>Ürün Adı</th>
+    <th>Fiyat</th>
+    <th>Link</th>
+  </tr>
+  {% for product in carrefoursa_data %}
+      <tr>
+          <td><img src="{{product['resim']}}" width="100" height="100"></td>
+          <td>{{product["urun"]}}</td>
+          <td>{{product["fiyat"]}}</td>
+          <td><a href = "{{product['link']}}">Git</a></td>
+      </tr>
+  {% endfor %}
+</table>
+</body>
+</html>
