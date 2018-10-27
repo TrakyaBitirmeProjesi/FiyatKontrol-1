@@ -1,6 +1,5 @@
 import bs4
 import requests
-import lxml
 
 def migros_checker(product_name):
     url = "https://www.sanalmarket.com.tr/arama?q="
@@ -15,7 +14,7 @@ def migros_checker(product_name):
             "urun" : j.find(class_="title product-card-title").text,
             "resim" : j.find("img")["src"],
             "fiyat" : (j.find(class_="price-tag").text.split("\n")[1].split("T")[0].lstrip().rstrip().replace(",","."))+" TL"
-
+            #eğer istenirse float dönüşümüne uygun
         })
     return dict
 
@@ -32,5 +31,6 @@ def carrefoursa_checher(product_name):
             "urun" : i.find(class_ = "item-name").text,
             "resim" : i.find("img")['src'],
             "fiyat" : (i.find(class_ = "item-price").text.split("T")[0].replace(",","."))+" TL"
+            # eğer istenirse float dönüşümüne uygun
         })
     return dict
