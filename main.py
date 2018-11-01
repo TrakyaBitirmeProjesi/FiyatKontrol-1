@@ -13,7 +13,7 @@ def migros_checker(product_name):
             "link" : "https://www.sanalmarket.com.tr"+j.find("a")["href"],
             "urun" : j.find(class_="title product-card-title").text,
             "resim" : j.find("img")["src"],
-            "fiyat" : (j.find(class_="price-tag").text.split("\n")[1].split("T")[0].lstrip().rstrip().replace(",","."))+" TL"
+            "fiyat" : float(j.find(class_="price-tag").text.split("\n")[1].split("T")[0].lstrip().rstrip().replace(",","."))
             #eğer istenirse float dönüşümüne uygun
         })
     return dict
@@ -30,7 +30,21 @@ def carrefoursa_checher(product_name):
             "link" : "https://www.carrefoursa.com/tr"+i.find("a")["href"],
             "urun" : i.find(class_ = "item-name").text,
             "resim" : i.find("img")['src'],
-            "fiyat" : (i.find(class_ = "item-price").text.split("T")[0].replace(",","."))+" TL"
+            "fiyat" : float(i.find(class_ = "item-price").text.split("T")[0].replace(",","."))
             # eğer istenirse float dönüşümüne uygun
+        })
+    return dict
+
+def bizim_checker(product_name):
+    url = "https://www.bizimtoptan.com.tr/arama/"
+    real_product = product_name.replace(" ","%20")
+    real_url = url + real_product
+    bizim_response = requests.get(real_url)
+    bizim_soup = bs4.BeautifulSoup(bizim_response.text,"lxml")
+    dict = []
+    for i in bizim_soup.find_all(class_ = "col-lg-3 col-sm-4 col-xs-4 col-xxs-6"):
+        dict.append({
+            "link" : "https://www.bizimtoptan.com.tr" + i.find("a")["href"],
+            "urun" : i.find("h3").text
         })
     return dict
