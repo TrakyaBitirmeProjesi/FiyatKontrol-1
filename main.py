@@ -2,13 +2,13 @@ import bs4
 import requests
 
 def migros_checker(product_name):
-    url = "https://www.sanalmarket.com.tr/arama?q="
+    url = "https://www.migros.com.tr/arama?q="
     real_product = product_name.replace(" ","+")
     real_url = url + real_product
     migros_response = requests.get(real_url)
     migros_soup = bs4.BeautifulSoup(migros_response.text , "lxml")
     dict = []
-    for j in migros_soup.find_all(class_ = "product-card product-action "):
+    for j in migros_soup.find_all(class_ = "center product-card-center"):
         try:
            fiyat = float(j.find(class_="price-tag").text.split("\n")[1].split("T")[0].lstrip().rstrip().replace(",","."))
         except ValueError:
@@ -17,7 +17,7 @@ def migros_checker(product_name):
         dict.append({
             "link" : "https://www.sanalmarket.com.tr"+j.find("a")["href"],
             "urun" : j.find(class_="title product-card-title").text,
-            "resim" : j.find("img")["src"],
+            "resim" : j.find("img")["data-src"],
             "fiyat" : fiyat
             #eğer istenirse float dönüşümüne uygun
         })

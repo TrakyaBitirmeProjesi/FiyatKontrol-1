@@ -1,6 +1,9 @@
 import main
 import flask
+from flask_cors import CORS
+
 app = flask.Flask(__name__)
+CORS(app)
 
 @app.route("/",methods=['GET'])
 def index():
@@ -25,4 +28,4 @@ def migros_api():
         return flask.abort(404)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port = 80,debug = True)
