@@ -1,9 +1,10 @@
 import main
 import flask
-from flask_cors import CORS
+import knn_alogritma
+#from flask_cors import CORS
 
 app = flask.Flask(__name__)
-CORS(app)
+#CORS(app)
 
 @app.route("/",methods=['GET'])
 def index():
@@ -26,6 +27,10 @@ def migros_api():
         return flask.jsonify(main.migros_checker(flask.request.args.get('product-name')))
     else:
         return flask.abort(404)
+
+@app.route("/yapay_knn")
+def yapay_api1():
+        return flask.jsonify(knn_alogritma.yapay_knn_fonksiyon(flask.request.args.get('liste')))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port = 80,debug = True)
