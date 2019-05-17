@@ -1,10 +1,10 @@
 import main
 import flask
 import knn_alogritma
-#from flask_cors import CORS
+from flask_cors import CORS
 
 app = flask.Flask(__name__)
-#CORS(app)
+CORS(app)
 
 @app.route("/",methods=['GET'])
 def index():
